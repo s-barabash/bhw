@@ -14,6 +14,7 @@ import org.example.repository.PicturesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class NasaStoreService {
   private final CamerasRepository camerasRepository;
   private final PicturesRepository picturesRepository;
 
+  @Transactional
   public void storeNasaPhotos(Integer sol) {
     log.info("Start to retrieve photos for sol:[{}]", sol);
     List<NasaPhoto> nasaPhotoList = nasaService.getPhotos(sol);
