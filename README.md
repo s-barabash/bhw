@@ -1,5 +1,9 @@
 ## Developer Setup
 
+### General
+
+Do not forget to setup nasa apikey in properties file
+
 ### Liquibase
 
 All configurations located in **liquibase** folder<br/>
