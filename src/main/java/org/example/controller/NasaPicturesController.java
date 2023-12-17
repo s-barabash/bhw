@@ -18,7 +18,7 @@ public class NasaPicturesController {
   @PostMapping("/pictures/steal")
   @ResponseStatus(HttpStatus.CREATED)
   public void getNasaPictures(@RequestBody NasaCrawlerReq req) {
-    nasaStoreService.storeNasaPhotos(req.getSol());
+    nasaStoreService.storeNasaPhotos(req.sol());
   }
 
 }
