@@ -1,12 +1,5 @@
 package org.example.model;
 
-import lombok.Builder;
-import lombok.Data;
+public record Picture(Integer nasaId, String imageSrc) {
 
-@Builder
-@Data
-public class Picture {
-
-  private Integer nasaId;
-  private String imageSrc;
 }

@@ -1,5 +1,6 @@
 package org.example.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -44,24 +45,21 @@ public class NasaStoreService {
   private static Map<Camera, List<Picture>> getPicturesPerCameraMap(List<NasaPhoto> nasaPhotoList) {
     return nasaPhotoList.stream()
         .collect(Collectors.toMap(
-            nasaPhoto -> Camera.builder()
-                .nasaId(nasaPhoto.getCamera().getId())
-                .name(nasaPhoto.getCamera().getName())
-                .build(),
-            nasaPhoto -> Collections.singletonList(Picture.builder()
-                .nasaId(nasaPhoto.getId())
-                .imageSrc(nasaPhoto.getImgSrc())
-                .build()),
+            nasaPhoto -> new Camera(nasaPhoto.getCamera().getId(),
+                nasaPhoto.getCamera().getName(),
+                new ArrayList<>()),
+            nasaPhoto -> Collections.singletonList(new Picture(nasaPhoto.getId(),
+                nasaPhoto.getImgSrc())),
             ListUtils::union
         ));
   }
 
   private void storePicturePerCamera(Map<Camera, List<Picture>> picturesPerCameraMap) {
     picturesPerCameraMap.forEach((key, value) -> {
-      Integer cameraId = camerasRepository.getCameraIdByNasaId(key.getNasaId())
+      Integer cameraId = camerasRepository.getCameraIdByNasaId(key.nasaId())
           .orElseGet(() -> {
             log.info("No camera was found for cameraNasaId:[{}], creating new camera",
-                key.getNasaId());
+                key.nasaId());
             return camerasRepository.createCamera(key);
           });
       log.info("Creating pictures for camera with id:[{}]", cameraId);

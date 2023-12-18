@@ -28,8 +28,8 @@ public class PicturesRepository {
     List<InsertReturningStep<PicturesRecord>> insertList = pictures.stream()
         .map(picture -> jooq.insertInto(PICTURES)
             .set(PICTURES.CAMERA_ID, cameraId)
-            .set(PICTURES.NASA_ID, picture.getNasaId())
-            .set(PICTURES.IMAGE_SRC, picture.getImageSrc())
+            .set(PICTURES.NASA_ID, picture.nasaId())
+            .set(PICTURES.IMAGE_SRC, picture.imageSrc())
             .onDuplicateKeyIgnore())
         .toList();
 

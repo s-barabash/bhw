@@ -31,8 +31,8 @@ public class CamerasRepository {
 
   public Integer createCamera(Camera camera) {
     return jooq.insertInto(CAMERAS)
-        .set(CAMERAS.NASA_ID, camera.getNasaId())
-        .set(CAMERAS.NAME, camera.getName())
+        .set(CAMERAS.NASA_ID, camera.nasaId())
+        .set(CAMERAS.NAME, camera.name())
         .onDuplicateKeyIgnore()
         .returningResult(CAMERAS.ID)
         .fetchSingle()

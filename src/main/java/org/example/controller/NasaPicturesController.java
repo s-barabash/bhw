@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.model.NasaReq;
+import org.example.model.SolReq;
 import org.example.service.NasaStoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class NasaPicturesController {
 
   @PostMapping("/pictures/steal")
   @ResponseStatus(HttpStatus.CREATED)
-  public void getNasaPictures(@RequestBody NasaReq req) {
+  public void getNasaPictures(@RequestBody SolReq req) {
     nasaStoreService.storeNasaPhotos(req.sol());
   }
 
