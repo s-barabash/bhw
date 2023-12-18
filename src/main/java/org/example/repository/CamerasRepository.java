@@ -15,7 +15,7 @@ public class CamerasRepository {
 
   private final DSLContext jooq;
 
-  public Optional<Integer> getCameraId(Integer nasaId) {
+  public Optional<Integer> getCameraIdByNasaId(Integer nasaId) {
     try {
       return Optional.of(
           jooq

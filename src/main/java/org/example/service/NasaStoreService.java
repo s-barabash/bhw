@@ -58,7 +58,7 @@ public class NasaStoreService {
 
   private void storePicturePerCamera(Map<Camera, List<Picture>> picturesPerCameraMap) {
     picturesPerCameraMap.forEach((key, value) -> {
-      Integer cameraId = camerasRepository.getCameraId(key.getNasaId())
+      Integer cameraId = camerasRepository.getCameraIdByNasaId(key.getNasaId())
           .orElseGet(() -> {
             log.info("No camera was found for cameraNasaId:[{}], creating new camera",
                 key.getNasaId());
