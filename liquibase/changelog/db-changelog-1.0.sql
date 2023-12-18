@@ -16,7 +16,7 @@ CREATE TABLE pictures
     image_src  VARCHAR(255)       NOT NULL,
     camera_id  INT                NOT NULL,
     created_at TIMESTAMP          NOT NULL DEFAULT NOW(),
-    CONSTRAINT fk_pictures_camera_id
+    CONSTRAINT fk_pictures_cameras
         FOREIGN KEY (camera_id)
             REFERENCES cameras (id)
             ON DELETE CASCADE
