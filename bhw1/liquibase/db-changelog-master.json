@@ -1,0 +1,9 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "liquibase/changelog/db-changelog-1.0.sql"
+      }
+    }
+  ]
+}
