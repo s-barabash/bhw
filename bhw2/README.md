@@ -2,11 +2,11 @@
 
 ### General
 
-Run docker connect to db and run sql script
+Run docker -> connect to db -> run bhw2.sql script
 
 ### Docker
 
-Creates postgress db:
+Create postgress db:
 
 ```shell
 docker compose up
