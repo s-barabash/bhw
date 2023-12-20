@@ -24,6 +24,7 @@
 
   <modules>
     <module>bhw1</module>
+    <module>bhw2</module>
   </modules>
 
   <dependencies>
