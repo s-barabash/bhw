@@ -42,6 +42,7 @@ create table applicants
     updated_at timestamp    not null default now(),
 
     constraint pk_applicants primary key (id),
+    constraint uq_applicants_ssn unique (ssn),
     constraint fk_applicants_users
         foreign key (id)
             references users
