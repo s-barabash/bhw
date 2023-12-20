@@ -1,10 +1,10 @@
-CREATE TYPE advisor_role AS ENUM ('associate', 'partner', 'senior');
-CREATE TYPE phone_type AS ENUM ('home', 'work', 'mobile');
-CREATE TYPE application_status AS ENUM ('new', 'assigned', 'on_hold', 'approved', 'canceled', 'declined');
-CREATE TYPE user_type AS ENUM ('advisor', 'applicant');
+create type advisor_role as enum ('associate', 'partner', 'senior');
+create type phone_type as enum ('home', 'work', 'mobile');
+create type application_status as enum ('new', 'assigned', 'on_hold', 'approved', 'canceled', 'declined');
+create type user_type as enum ('advisor', 'applicant');
 
 
-CREATE TABLE users
+create table users
 (
     id         bigserial,
     username   varchar(255) not null,
@@ -14,11 +14,11 @@ CREATE TABLE users
     updated_at timestamp    not null default now(),
 
     constraint pk_users primary key (id),
-    constraint uq_username unique (username),
-    constraint uq_email unique (email)
+    constraint uq_users_username unique (username),
+    constraint uq_users_email unique (email)
 );
 
-CREATE TABLE advisors
+create table advisors
 (
     id         bigint,
     role       advisor_role not null,
@@ -28,11 +28,11 @@ CREATE TABLE advisors
     constraint pk_advisors primary key (id),
     constraint fk_advisors_users
         foreign key (id)
-            references users (id)
+            references users
             on delete cascade
 );
 
-CREATE TABLE applicants
+create table applicants
 (
     id         bigint,
     first_name varchar(255) not null,
@@ -44,11 +44,11 @@ CREATE TABLE applicants
     constraint pk_applicants primary key (id),
     constraint fk_applicants_users
         foreign key (id)
-            references users (id)
+            references users
             on delete cascade
 );
 
-CREATE TABLE addresses
+create table addresses
 (
     id           bigserial,
     applicant_id bigint       not null,
@@ -67,7 +67,7 @@ CREATE TABLE addresses
             on delete cascade
 );
 
-CREATE TABLE phones
+create table phones
 (
     id           bigserial,
     applicant_id bigint       not null,
@@ -83,12 +83,12 @@ CREATE TABLE phones
             on delete cascade
 );
 
-CREATE TABLE applications
+create table applications
 (
     id           bigserial,
     applicant_id bigint             not null,
     advisor_id   bigint,
-    amount       DECIMAL(14, 2)     not null,
+    amount decimal(14, 2) not null,
     status       application_status not null default 'new',
     created_at   timestamp          not null default now(),
     updated_at   timestamp          not null default now(),
@@ -104,14 +104,13 @@ CREATE TABLE applications
             references advisors (id),
 
     constraint chk_applications_advisor_id_assigned_at check (
-        (advisor_id IS NOT NULL AND assigned_at IS NOT NULL) OR
-        (advisor_id IS NULL AND assigned_at IS NULL)
+        (advisor_id is not null and assigned_at is not null) or
+        (advisor_id is null and assigned_at is null)
         )
 );
 
 
-CREATE INDEX idx_addresses_applicant_id ON addresses (applicant_id);
-CREATE INDEX idx_phones_applicant_id ON phones (applicant_id);
-CREATE INDEX idx_applications_applicant_id ON applications (applicant_id);
-CREATE INDEX idx_applications_advisor_id ON applications (advisor_id);
-
+create index idx_addresses_applicant_id on addresses (applicant_id);
+create index idx_phones_applicant_id on phones (applicant_id);
+create index idx_applications_applicant_id on applications (applicant_id);
+create index idx_applications_advisor_id on applications (advisor_id);
